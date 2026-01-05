@@ -4,7 +4,7 @@ import cv2 as cv
 import numpy as np
 
 # Open and read the FITS file
-fits_file = './examples/HorseHead.fits'
+fits_file = './examples/test_M31_linear.fits'
 hdul = fits.open(fits_file)
 
 # Display information about the file
@@ -29,11 +29,10 @@ if data.ndim == 3:
     # Save the data as a png image (no cmap for color images)
     plt.imsave('./results/original.png', data_normalized)
     
-    # Normalize each channel separately to [0, 255] for OpenCV
-    image = np.zeros_like(data, dtype='uint8')
-    for i in range(data.shape[2]):
-        channel = data[:, :, i]
-        image[:, :, i] = ((channel - channel.min()) / (channel.max() - channel.min()) * 255).astype('uint8')
+    image = ((data - data.min()) / (data.max() - data.min()) * 255).astype('uint8')
+    image = cv.cvtColor(image, cv.COLOR_RGB2BGR)
+    # Il faut passer en BGR car les rouges se changent en bleu en RGB,
+    # la ligne du dessus sert à inverser ces couleurs. 
 else:
     # Monochrome image
     plt.imsave('./results/original.png', data, cmap='gray')
@@ -44,9 +43,9 @@ else:
 
 
 # Define a kernel for erosion
-kernel = np.ones((3,3), np.uint8)
+kernel = np.ones((2,2), np.uint8)
 # Perform erosion
-eroded_image = cv.erode(image, kernel, iterations=1)
+eroded_image = cv.erode(image, kernel, iterations=3)
 
 # Save the eroded image 
 cv.imwrite('./results/eroded.png', eroded_image)
