@@ -1,71 +1,47 @@
-import os
 import cv2 as cv
 import numpy as np
 from astropy.io import fits
-import matplotlib.pyplot as plt
 
-
-class AstroPictureHandler :
-
+class AstroPictureHandler:
     @staticmethod
     def process_reduction(fits_file: str, kernel_size: tuple[int, int], blur_size: tuple[int, int], iters: int, threshold_val: int):
-       
-        hdul = fits.open(fits_file)
+        try:
+            hdul = fits.open(fits_file)
+            data = hdul[0].data
+            hdul.close()
 
-        # Access the data from the primary HDU
-        data = hdul[0].data
+            if data is None: return None
 
-        # Access header information
-        header = hdul[0].header
+            # normalisation et gestion couleur/mono
+            if data.ndim == 3:
+                if data.shape[0] == 3:
+                    data = np.transpose(data, (1, 2, 0))
+                image = ((data - data.min()) / (data.max() - data.min()) * 255).astype('uint8')
+                # OpenCV déjà en BGR
+            else:
+                image = ((data - data.min()) / (data.max() - data.min()) * 255).astype('uint8')
 
-        # Handle both monochrome and color images
-        if data.ndim == 3:
-            # Color image - need to transpose to (height, width, channels)
-            if data.shape[0] == 3:  # If channels are first: (3, height, width)
-                data = np.transpose(data, (1, 2, 0))
-                
-            # If already (height, width, 3), no change needed
-            # Normalize the entire image to [0, 1] for matplotlib
-            data_normalized = (data - data.min()) / (data.max() - data.min())
+            # création du masque (Phase 2)
+            gray = cv.cvtColor(image, cv.COLOR_BGR2GRAY) if data.ndim == 3 else image
+            # sécurité : blur_size doit être impair
+            blurred = cv.GaussianBlur(gray, blur_size, 0)
+            mask = cv.adaptiveThreshold(blurred, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY, 21, threshold_val)
+
+            #érosion et Blending
+            kernel = np.ones(kernel_size, np.uint8)
+            eroded_image = cv.erode(image, kernel, iterations=iters)
+
+            mask_smooth = cv.GaussianBlur(mask, blur_size, 0)
+            M = mask_smooth.astype(np.float32) / 255.0
+
+            if data.ndim == 3:
+                M = M[:, :, np.newaxis]
             
-            # Save the data as a png image (no cmap for color images)
-            plt.imsave('./../results/original.png', data_normalized)
-            image = ((data - data.min()) / (data.max() - data.min()) * 255).astype('uint8')
-            image = cv.cvtColor(image, cv.COLOR_RGB2BGR)
-            # Il faut passer en BGR car les rouges se changent en bleu en RGB,
-            # la ligne du dessus sert à inverser ces couleurs. 
-        else:
-            # Monochrome image
-            plt.imsave('./../results/original.png', data, cmap='gray')
-            # Convert to uint8 for OpenCV
-            image = ((data - data.min()) / (data.max() - data.min()) * 255).astype('uint8')
+            #calcul final
+            final_image = (M * eroded_image + (1 - M) * image).astype(np.uint8)
 
-        # Création du masque
-        gray = cv.cvtColor(image, cv.COLOR_BGR2GRAY) if data.ndim == 3 else image
-        blurred = cv.GaussianBlur(gray, blur_size, 0)
-        mask = cv.adaptiveThreshold(blurred, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY, 21, threshold_val)
-        cv.imwrite('./../results/star_mask.png', mask)
-
-        # Define a kernel for erosion
-        kernel = np.ones(kernel_size, np.uint8)
-
-        # Perform erosion
-        eroded_image = cv.erode(image, kernel, iterations=iters)
-
-        # Save the eroded image 
-        cv.imwrite('./../results/eroded.png', eroded_image)
-
-        mask_smooth = cv.GaussianBlur(mask, blur_size, 0)
-        M = mask_smooth.astype(np.float32) / 255.0
-
-        # I_final = (M * I_erode) + ((1 - M) * I_original)
-        if data.ndim == 3:
-            M = M[:, :, np.newaxis]
-        final_image = (M * eroded_image + (1 - M) * image).astype(np.uint8)
-
-        cv.imwrite('./../results/final.png', final_image)
-
-        # Close the file
-        hdul.close()
-
-        return '.\\..\\results\\final.png'
+            # on renvoie l'image finale
+            return final_image
+        except Exception as e:
+            print(f"Erreur calcul : {e}")
+            return None

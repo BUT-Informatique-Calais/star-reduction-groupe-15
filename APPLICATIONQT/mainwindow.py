@@ -5,7 +5,7 @@ from PySide6.QtCore import QFile, Qt
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtGui import QImage, QPixmap
 
-# Import de ton fichier de calcul
+# Import du fichier de calcul
 from AstroPictureHandler import AstroPictureHandler as model
 
 class StarReductionApp(QMainWindow):
@@ -13,10 +13,10 @@ class StarReductionApp(QMainWindow):
         super().__init__()
 
 
-        # Chargement du fichier .ui
+        # chargement du fichier .ui
         loader = QUiLoader()
 
-        # Chargement du QSS
+        #chargement du QSS
         qss_path = os.path.join(os.path.dirname(__file__), "style.qss")
         if os.path.exists(qss_path):
             with open(qss_path, "r") as f:
@@ -30,7 +30,7 @@ class StarReductionApp(QMainWindow):
 
         self.current_path = ""
 
-        # Connexions des signaux (Bouton et Sliders)
+        #connexions des signaux (bouton et sliders)
         self.ui.btn_open.clicked.connect(self.open_file)
         self.ui.sld_kernel.valueChanged.connect(self.update_image)
         self.ui.sld_blur.valueChanged.connect(self.update_image)
@@ -46,11 +46,8 @@ class StarReductionApp(QMainWindow):
             self.update_image()
 
     def update_image(self):
-        """Récupère les réglages et appelle le modèle."""
-        if not self.current_path:
-            return
+        if not self.current_path: return
 
-        # Récupération des valeurs depuis l'UI
         k = self.ui.sld_kernel.value()
         b = self.ui.sld_blur.value()
         it = self.ui.sld_iter.value()
@@ -59,15 +56,27 @@ class StarReductionApp(QMainWindow):
         if k % 2 == 0: k += 1
         if b % 2 == 0: b += 1
 
-        img = model.process_reduction(self.current_path, (k,k), (b,b), it, th)
-        if img :
+        img_data = model.process_reduction(self.current_path, (k, k), (b, b), it, th)
+        
+        if img_data is not None:
+            self.show_image(img_data)
 
-            self.show_image(os.path.join(os.path.dirname(__file__), img))
-
-    def show_image(self, cv_img: str):
-        """Affiche l'image traitée dans le label de l'interface."""
+    def show_image(self, cv_img):
+        """Affiche l'image avec les couleurs originales respectées."""
         if cv_img is not None:
-            qt_img = QImage(cv_img)
+            height, width = cv_img.shape[:2]
+            
+            # cas image noir et blanc
+            if len(cv_img.shape) == 2:
+                bytes_per_line = width
+                qt_img = QImage(cv_img.data, width, height, bytes_per_line, QImage.Format_Grayscale8)
+            
+            #cas image couleur
+            else:
+                bytes_per_line = 3 * width
+                qt_img = QImage(cv_img.data, width, height, bytes_per_line, QImage.Format_RGB888)
+            
+
             self.ui.lbl_display.setPixmap(QPixmap.fromImage(qt_img).scaled(
                 self.ui.lbl_display.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation))
             
