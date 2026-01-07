@@ -1,4 +1,3 @@
-947dfc4 - Txm-dst, 2026-01-07 16:50:44 +0100 : Ajout logs
 e3a1a27 - Txm-dst, 2026-01-07 16:38:58 +0100 : MAJ README
 59e69ff - RegnaultAlex, 2026-01-07 16:33:48 +0100 : amélioration graphique application
 cf95a25 - Txm-dst, 2026-01-07 16:29:57 +0100 : Modification du Controller et Model pour que ça fonctionne sur Mac

@@ -23,7 +23,7 @@ Ce projet vise à développer une application de traitement d'images astronomiqu
 
 3.  **Fusion** : L'image finale est une composition : les zones hors masque conservent l'image originale (fond de ciel intact), alors que les zones sous le masque affichent l'image érodée.
 
-### Difficultés rencontrées
+### Difficultés rencontrés
 
 * **Initiation de Qt Creator** : Nous avons du apprendre à utiliser l'outil Qt Creator afin d'aller plus vite.
 * **Synchronisation Git** : Gestion des conflits lors des merges et rebases pour maintenir un historique propre.
@@ -31,7 +31,7 @@ Ce projet vise à développer une application de traitement d'images astronomiqu
 
 ---
 
-## Installation
+##  Installation
 
 **Lancer le programme** : python mainwindow.py
 
