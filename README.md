@@ -4,9 +4,9 @@
 
 Auteurs :
 
-- Teiten Thomas
-- Dussautois Tom
-- Regnault Alex
+- TEITEN Thomas
+- DUSSAUTOIS Tom
+- REGNAULT Alex
 
 ## Installation
 
@@ -52,4 +52,13 @@ Example files are located in the `examples/` directory. You can run the scripts 
 
 - Example 1 : `examples/HorseHead.fits` (Black and whiteFITS image file for testing)
 - Example 2 : `examples/test_M31_linear.fits` (Color FITS image file for testing)
+
 - Example 3 : `examples/test_M31_raw.fits` (Color FITS image file for testing)
+<<<<<<<<< Temporary merge branch 1
+
+- Présence Teiten Thomas
+
+
+
+=========
+>>>>>>>>> Temporary merge branch 2
