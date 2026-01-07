@@ -9,13 +9,11 @@ cbf7c4f - Txm-dst, 2026-01-07 15:02:50 +0100 : Modif du code Phase2
 e484fee - RegnaultAlex, 2026-01-07 13:29:19 +0100 : Merge branch 'main' of https://github.com/BUT-Informatique-Calais/star-reduction-groupe-15
 a5d1aad - RegnaultAlex, 2026-01-07 13:28:39 +0100 : Application QT non finie
 9ea04d3 - Thomas Teiten, 2026-01-07 11:57:24 +0100 : Merge branch 'main' of https://github.com/BUT-Informatique-Calais/star-reduction-groupe-15
-aae3794 - Txm-dst, 2026-01-07 10:02:17 +0100 : Mise à jour du readme
-72a7c38 - Thomas Teiten, 2026-01-07 08:35:20 +0100 : Présence Thomas
-48943cb - Txm-dst, 2026-01-07 08:32:41 +0100 : Présence Tom
 5c5a6e6 - Txm-dst, 2026-01-07 10:02:17 +0100 : Mise à jour du readme
 5cfa677 - RegnaultAlex, 2026-01-07 08:42:54 +0100 : Merge branch 'main' of https://github.com/BUT-Informatique-Calais/star-reduction-groupe-15
 b4e22d9 - RegnaultAlex, 2026-01-07 08:41:23 +0100 : ajout auteurs
 4b9d8a3 - Thomas Teiten, 2026-01-07 08:35:20 +0100 : Présence Thomas
+48943cb - Txm-dst, 2026-01-07 08:32:41 +0100 : Présence Tom
 c29f82b - Txm-dst, 2026-01-06 11:29:06 +0100 : Phase 2
 c6ff17c - RegnaultAlex, 2026-01-05 15:03:24 +0100 : images
 60407c3 - Thomas Teiten, 2026-01-05 14:55:56 +0100 : Résolution conflits images
