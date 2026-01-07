@@ -1,0 +1,64 @@
+/* Fond général de l'application */
+QMainWindow, QWidget#centralwidget {
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+
+/* Style du Label d'image (la zone noire) */
+QLabel#label_image {
+    background-color: #000000;
+    border: 2px solid #3d3d3d;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+/* Style du bouton "Choisir un fichier" */
+QPushButton {
+    background-color: #2d2d2d;
+    border: 1px solid #444;
+    border-radius: 5px;
+    color: white;
+    padding: 8px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #3d3d3d;
+    border: 1px solid #722f37; /* Rappel du rouge */
+}
+
+QPushButton:pressed {
+    background-color: #1a1a1a;
+}
+
+/* Style des Sliders (les barres de réglage) */
+QSlider::groove:horizontal {
+    border: 1px solid #333;
+    height: 6px;
+    background: #444;
+    margin: 2px 0;
+    border-radius: 3px;
+}
+
+QSlider::handle:horizontal {
+    background: #a33a3a; /* Ton rouge bordeaux */
+    border: 1px solid #722f37;
+    width: 18px;
+    height: 18px;
+    margin: -7px 0;
+    border-radius: 9px;
+}
+
+/* Style des SpinBoxes (les nombres à côté des sliders) */
+QSpinBox {
+    width: 25px;
+    height: 25px;
+}
+
+/* La Toolbar à droite */
+QToolBar {
+    background-color: #252525;
+    border-left: 1px solid #3d3d3d;
+    spacing: 10px;
+    padding: 5px;
+}

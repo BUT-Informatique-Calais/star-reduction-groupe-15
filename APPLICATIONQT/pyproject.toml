@@ -2,4 +2,4 @@
 name = "PySide Widgets Project"
 
 [tool.pyside6-project]
-files = ["AstroPictureHandler.py", "form.ui", "mainwindow.py"]
+files = ["AstroPictureHandler.py", "form.ui", "mainwindow.py", "style.qss"]
