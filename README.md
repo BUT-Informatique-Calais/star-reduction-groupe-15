@@ -1,64 +1,40 @@
+# Documentation du Projet : Réduction d'Étoiles
+
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/zP0O23M7)
 
-# Project Documentation
+## Auteurs
 
-Auteurs :
+* **TEITEN Thomas**
+* **DUSSAUTOIS Tom**
+* **REGNAULT Alex**
 
-- TEITEN Thomas
-- DUSSAUTOIS Tom
-- REGNAULT Alex
+---
+
+## Présentation du projet
+
+Ce projet vise à développer une application de traitement d'images astronomiques (fichiers FITS) permettant de réduire la taille des étoiles sans altérer les objets du ciel profond (nébuleuses, galaxies). L'application utilise une architecture MVC (Modèle, Vue, Contrôleur) avec une interface graphique développée avec Qt Creator.
+
+### Méthode choisie (Phase 2 : Masquage Adaptatif)
+
+
+1.  **Création du masque** : Utilisation de cv2.adaptiveThreshold pour isoler les étoiles du fond du ciel, même en présence de luminosité.
+
+2.  **Traitement du masque** : Application d'une érosion sur le masque pour réduire la taille des étoiles.
+
+3.  **Fusion** : L'image finale est une composition : les zones hors masque conservent l'image originale (fond de ciel intact), alors que les zones sous le masque affichent l'image érodée.
+
+### Difficultés rencontrées
+
+* **Initiation de Qt Creator** : Nous avons du apprendre à utiliser l'outil Qt Creator afin d'aller plus vite.
+* **Synchronisation Git** : Gestion des conflits lors des merges et rebases pour maintenir un historique propre.
+* **Gestion de la couleur** : Passage de RGB à BGR car OpenCV utilise du BGR.
+
+---
 
 ## Installation
 
-### Virtual Environment
-
-It is recommended to create a virtual environment before installing dependencies:
+**Lancer le programme** : python mainwindow.py
 
 ```bash
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-### Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-Or install dependencies manually:
-
-```bash
-pip install [package-name]
-```
-
-## Usage
-
-### Command Line
-
-```bash
-python main.py [arguments]
-```
-
-## Requirements
-
-- Python 3.8+
-- See `requirements.txt` for full dependency list
-- PyQt6
-
-## Examples files
-
-Example files are located in the `examples/` directory. You can run the scripts with these files to see how they work.
-
-- Example 1 : `examples/HorseHead.fits` (Black and whiteFITS image file for testing)
-- Example 2 : `examples/test_M31_linear.fits` (Color FITS image file for testing)
-
-- Example 3 : `examples/test_M31_raw.fits` (Color FITS image file for testing)
-<<<<<<<<< Temporary merge branch 1
-
-- Présence Teiten Thomas
-
-
-
-=========
->>>>>>>>> Temporary merge branch 2
+source venv/bin/activate  # Sur Windows: venv\Scripts\activate
