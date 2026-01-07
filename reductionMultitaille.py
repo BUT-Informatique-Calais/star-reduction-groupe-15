@@ -26,21 +26,19 @@ mask = cv.adaptiveThreshold(blurred, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRE
 cv.imwrite('./results/star_mask.png', mask)
 
 
-# Étape 1 : Trouver les étoiles et mesurer leur taille
+# On mesure les étoiles
 contours, _ = cv.findContours(mask, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
 
-# Étape 2 : Créer un masque par taille de kernel
-# On regroupe les étoiles en 3 catégories : petites, moyennes, grosses
-mask_small = np.zeros_like(mask)   # kernel 3x3
-mask_medium = np.zeros_like(mask)  # kernel 5x5
-mask_large = np.zeros_like(mask)   # kernel 7x7
+# Différentes catégories d'étoiles en fonction de leur taille
+mask_small = np.zeros_like(mask)
+mask_medium = np.zeros_like(mask)
+mask_large = np.zeros_like(mask)
 
 for cnt in contours:
     area = cv.contourArea(cnt)
     if area < 5:
         continue
     
-    # Classer l'étoile selon sa surface
     if area < 50:
         cv.drawContours(mask_small, [cnt], -1, 255, -1)
     elif area < 200:
@@ -48,7 +46,7 @@ for cnt in contours:
     else:
         cv.drawContours(mask_large, [cnt], -1, 255, -1)
 
-# Étape 3 : Appliquer une érosion différente pour chaque catégorie
+# L'érosion est différente pour chacune des catégories pour adapter au mieux et être plus précis
 kernel_small = np.ones((3, 3), np.uint8)
 kernel_medium = np.ones((5, 5), np.uint8)
 kernel_large = np.ones((7, 7), np.uint8)
@@ -57,11 +55,9 @@ eroded_small = cv.erode(image, kernel_small, iterations=1)
 eroded_medium = cv.erode(image, kernel_medium, iterations=1)
 eroded_large = cv.erode(image, kernel_large, iterations=1)
 
-# Étape 4 : Combiner les résultats
-# On part de l'image originale et on remplace les zones d'étoiles par leur version érodée
+# On combine tout les résultats pour obtenir notre image finale
 result = image.copy()
 
-# Convertir les masques en float pour le blending
 m_small = cv.GaussianBlur(mask_small, (5, 5), 0).astype(np.float32) / 255.0
 m_medium = cv.GaussianBlur(mask_medium, (5, 5), 0).astype(np.float32) / 255.0
 m_large = cv.GaussianBlur(mask_large, (5, 5), 0).astype(np.float32) / 255.0
@@ -71,7 +67,8 @@ if data.ndim == 3:
     m_medium = m_medium[:, :, np.newaxis]
     m_large = m_large[:, :, np.newaxis]
 
-# Appliquer chaque érosion sur sa zone
+# Appliquer les erosions
+
 result = (m_small * eroded_small + (1 - m_small) * result).astype(np.uint8)
 result = (m_medium * eroded_medium + (1 - m_medium) * result).astype(np.uint8)
 result = (m_large * eroded_large + (1 - m_large) * result).astype(np.uint8)
