@@ -44,6 +44,7 @@ python main.py [arguments]
 
 - Python 3.8+
 - See `requirements.txt` for full dependency list
+- PyQt6
 
 ## Examples files
 
@@ -52,6 +53,3 @@ Example files are located in the `examples/` directory. You can run the scripts 
 - Example 1 : `examples/HorseHead.fits` (Black and whiteFITS image file for testing)
 - Example 2 : `examples/test_M31_linear.fits` (Color FITS image file for testing)
 - Example 3 : `examples/test_M31_raw.fits` (Color FITS image file for testing)
-
-
-
