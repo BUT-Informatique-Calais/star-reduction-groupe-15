@@ -4,9 +4,9 @@
 
 Auteurs :
 
-- Teiten Thomas
-- Dussautois Tom
-- Regnault Alex
+- TEITEN Thomas
+- DUSSAUTOIS Tom
+- REGNAULT Alex
 
 ## Installation
 
