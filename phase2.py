@@ -8,9 +8,6 @@ import numpy as np
 fits_file = './examples/test_M31_linear.fits'
 hdul = fits.open(fits_file)
 
-# Display information about the file
-hdul.info()
-
 # Access the data from the primary HDU
 data = hdul[0].data
 
