@@ -4,9 +4,9 @@
 
 ## Auteurs
 
-* **TEITEN Thomas**
-* **DUSSAUTOIS Tom**
-* **REGNAULT Alex**
+- **TEITEN Thomas**
+- **DUSSAUTOIS Tom**
+- **REGNAULT Alex**
 
 ---
 
@@ -16,7 +16,6 @@ Ce projet vise à développer une application de traitement d'images astronomiqu
 
 ### Méthode choisie (Phase 2 : Masquage Adaptatif)
 
-
 1.  **Création du masque** : Utilisation de cv2.adaptiveThreshold pour isoler les étoiles du fond du ciel, même en présence de luminosité.
 
 2.  **Traitement du masque** : Application d'une érosion sur le masque pour réduire la taille des étoiles.
@@ -25,16 +24,17 @@ Ce projet vise à développer une application de traitement d'images astronomiqu
 
 ### Difficultés rencontrés
 
-* **Initiation de Qt Creator** : Nous avons du apprendre à utiliser l'outil Qt Creator afin d'aller plus vite.
-* **Synchronisation Git** : Gestion des conflits lors des merges et rebases pour maintenir un historique propre.
-* **Gestion de la couleur** : Passage de RGB à BGR car OpenCV utilise du BGR.
+- **Initiation à Qt Creator** : Nous avons du apprendre à utiliser l'outil Qt Creator afin d'aller plus vite.
+- **Synchronisation Git** : Gestion des conflits lors des merges et rebases pour maintenir un historique propre.
+- **Gestion de la couleur** : Passage de RGB à BGR car OpenCV utilise du BGR.
 
 ---
 
-##  Installation
+## Installation
 
 **Lancer le programme** : python mainwindow.py
 
 ```bash
 python -m venv venv
 source venv/bin/activate  # Sur Windows: venv\Scripts\activate
+```

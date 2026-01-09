@@ -5,13 +5,16 @@ from PySide6.QtCore import QFile, Qt
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtGui import QImage, QPixmap
 
-# Import du fichier de calcul
 from AstroPictureHandler import AstroPictureHandler as model
 
 class StarReductionApp(QMainWindow):
+    
+    
     def __init__(self):
+        
         super().__init__()
 
+        self.setWindowTitle("G15 - Astrophoto")
 
         # chargement du fichier .ui
         loader = QUiLoader()
@@ -30,7 +33,7 @@ class StarReductionApp(QMainWindow):
 
         self.current_path = ""
 
-        #connexions des signaux (bouton et sliders)
+        #connexions des signaux
         self.ui.btn_open.clicked.connect(self.open_file)
         self.ui.sld_kernel.valueChanged.connect(self.update_image)
         self.ui.sld_blur.valueChanged.connect(self.update_image)
