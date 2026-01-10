@@ -32,6 +32,14 @@ class Ui_MainWindow(object):
         self.gridLayout.setContentsMargins(24, 24, 24, 5)
         self.verticalLayout_2 = QVBoxLayout()
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.horizontalLayout_7 = QHBoxLayout()
+        self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
+        self.lbl_display_before = QLabel(self.centralwidget)
+        self.lbl_display_before.setObjectName(u"lbl_display_before")
+        self.lbl_display_before.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.horizontalLayout_7.addWidget(self.lbl_display_before)
+
         self.lbl_display = QLabel(self.centralwidget)
         self.lbl_display.setObjectName(u"lbl_display")
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
@@ -41,7 +49,10 @@ class Ui_MainWindow(object):
         self.lbl_display.setSizePolicy(sizePolicy)
         self.lbl_display.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.verticalLayout_2.addWidget(self.lbl_display)
+        self.horizontalLayout_7.addWidget(self.lbl_display)
+
+
+        self.verticalLayout_2.addLayout(self.horizontalLayout_7)
 
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
 
@@ -216,6 +227,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        self.lbl_display_before.setText(QCoreApplication.translate("MainWindow", u"Pas d'image charg\u00e9", None))
         self.lbl_display.setText(QCoreApplication.translate("MainWindow", u"Pas d'image charg\u00e9", None))
         self.btn_open.setText(QCoreApplication.translate("MainWindow", u"Choisir un fichier FITS", None))
         self.btn_lib.setText(QCoreApplication.translate("MainWindow", u"Biblioth\u00e8que d'images", None))

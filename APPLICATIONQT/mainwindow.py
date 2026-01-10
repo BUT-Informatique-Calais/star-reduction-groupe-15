@@ -96,6 +96,9 @@ class StarReductionApp(QMainWindow):
             self.ui.lbl_display.setPixmap(QPixmap.fromImage(qt_img).scaled(
                 self.ui.lbl_display.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation))
             
+            self.ui.lbl_display_before.setPixmap(QPixmap.fromImage(QImage(os.path.join(os.path.dirname(__file__),"./../results/original.png"))).scaled(
+                self.ui.lbl_display_before.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation))
+            
     def reset_parameters(self):
         """Remet tous les sliders aux valeurs par défaut."""
         self.ui.sld_kernel.setValue(3)
