@@ -24,14 +24,14 @@ QPushButton {
 
 QPushButton:hover {
     background-color: #3d3d3d;
-    border: 1px solid #722f37; /* Rappel du rouge */
+    border: 1px solid #722f37;
 }
 
 QPushButton:pressed {
     background-color: #1a1a1a;
 }
 
-/* Style des Sliders (les barres de réglage) */
+/* Style des Sliders */
 QSlider::groove:horizontal {
     border: 1px solid #333;
     height: 6px;
@@ -41,7 +41,7 @@ QSlider::groove:horizontal {
 }
 
 QSlider::handle:horizontal {
-    background: #a33a3a; /* Ton rouge bordeaux */
+    background: #a33a3a; 
     border: 1px solid #722f37;
     width: 18px;
     height: 18px;
@@ -49,7 +49,7 @@ QSlider::handle:horizontal {
     border-radius: 9px;
 }
 
-/* Style des SpinBoxes (les nombres à côté des sliders) */
+/* Style des SpinBoxes*/
 QSpinBox {
     width: 25px;
     height: 25px;
