@@ -5,15 +5,15 @@ from PySide6.QtUiTools import QUiLoader
 from astropy.io import fits
 import numpy as np
 import os
+from ClickableLabel import ClickableLabel
 
 class Picture(QWidget):
     def __init__(self, picture_path: str) -> None:
         super().__init__()
-        
-        self.setStyleSheet("QWidget {border: 1px solid brown} QLabel {border: none}")
-        
+
+        self.PICTURE_PATH = picture_path
         self.original_image = None
-        
+
         loader = QUiLoader()
         ui_path = os.path.join(os.path.dirname(__file__), "picture.ui")
         ui_file = QFile(ui_path)
@@ -21,22 +21,32 @@ class Picture(QWidget):
         self.ui = loader.load(ui_file, self)
         ui_file.close()
 
+        old_label = self.ui.lbl_display
+        parent_layout = old_label.parentWidget().layout()
+        index = parent_layout.indexOf(old_label)
+        old_label.setParent(None)
+
+        self.ui.lbl_display = ClickableLabel(old_label.parentWidget(), self.PICTURE_PATH)
         self.ui.lbl_display.setText("Chargement...")
-        self.ui.lbl_display.setAlignment(Qt.AlignCenter)
-        self.ui.lbl_display.setScaledContents(False)    
-        
+        self.ui.lbl_display.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.ui.lbl_display.setScaledContents(False)
+        parent_layout.insertWidget(index, self.ui.lbl_display)
+
         self.set_image_data(picture_path)
+
 
     def set_image_data(self, fits_path):
         try:
             with fits.open(fits_path) as hdul:
                 data = hdul[0].data
 
-            if data is None: return
+            if data is None:
+                return
 
             data = np.nan_to_num(data)
             d_min, d_max = np.min(data), np.max(data)
-            
+
             if d_max - d_min == 0:
                 normalized = np.zeros(data.shape, dtype=np.uint8)
             else:
@@ -62,24 +72,15 @@ class Picture(QWidget):
             self.ui.lbl_display.setText("Erreur")
 
     def update_display(self):
-        """Redessine l'image en gardant le ratio"""
         if self.original_image and not self.original_image.isNull():
             target_size = self.ui.lbl_display.size()
-            
             if target_size.width() > 1 and target_size.height() > 1:
                 pixmap = QPixmap.fromImage(self.original_image)
-                scaled_pix = pixmap.scaled(
-                    target_size,
-                    Qt.KeepAspectRatio,
-                    Qt.SmoothTransformation
-                )
+                scaled_pix = pixmap.scaled(target_size, Qt.IgnoreAspectRatio, Qt.SmoothTransformation)
                 self.ui.lbl_display.setPixmap(scaled_pix)
 
     def resizeEvent(self, event):
-        """Déclenché quand le widget change de taille"""
         super().resizeEvent(event)
-        
         self.ui.resize(self.size())
         self.ui.lbl_display.resize(self.ui.size())
-        
         self.update_display()

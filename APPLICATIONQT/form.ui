@@ -62,11 +62,22 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="btn_open">
-        <property name="text">
-         <string>Choisir un fichier FITS</string>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QPushButton" name="btn_open">
+          <property name="text">
+           <string>Choisir un fichier FITS</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btn_lib">
+          <property name="text">
+           <string>Bibliothèque d'images</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout">

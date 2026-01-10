@@ -47,10 +47,20 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_2.addItem(self.verticalSpacer)
 
+        self.horizontalLayout_2 = QHBoxLayout()
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.btn_open = QPushButton(self.centralwidget)
         self.btn_open.setObjectName(u"btn_open")
 
-        self.verticalLayout_2.addWidget(self.btn_open)
+        self.horizontalLayout_2.addWidget(self.btn_open)
+
+        self.btn_lib = QPushButton(self.centralwidget)
+        self.btn_lib.setObjectName(u"btn_lib")
+
+        self.horizontalLayout_2.addWidget(self.btn_lib)
+
+
+        self.verticalLayout_2.addLayout(self.horizontalLayout_2)
 
         self.verticalLayout = QVBoxLayout()
         self.verticalLayout.setSpacing(15)
@@ -208,6 +218,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.lbl_display.setText(QCoreApplication.translate("MainWindow", u"Pas d'image charg\u00e9", None))
         self.btn_open.setText(QCoreApplication.translate("MainWindow", u"Choisir un fichier FITS", None))
+        self.btn_lib.setText(QCoreApplication.translate("MainWindow", u"Biblioth\u00e8que d'images", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Kernel Erosion    ", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Flou Masque      ", None))
         self.lbl_iter.setText(QCoreApplication.translate("MainWindow", u"Iterations            ", None))

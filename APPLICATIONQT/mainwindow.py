@@ -4,6 +4,7 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QFileDialog
 from PySide6.QtCore import QFile, Qt
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtGui import QImage, QPixmap
+from FitsLibrary import FitsLibrary
 
 from AstroPictureHandler import AstroPictureHandler as model
 
@@ -18,6 +19,7 @@ class StarReductionApp(QMainWindow):
 
         # chargement du fichier .ui
         loader = QUiLoader()
+        self.fits_lib = None
 
         #chargement du QSS
         qss_path = os.path.join(os.path.dirname(__file__), "style.qss")
@@ -35,11 +37,22 @@ class StarReductionApp(QMainWindow):
 
         #connexions des signaux
         self.ui.btn_open.clicked.connect(self.open_file)
+        self.ui.btn_lib.clicked.connect(self.open_lib)
         self.ui.sld_kernel.valueChanged.connect(self.update_image)
         self.ui.sld_blur.valueChanged.connect(self.update_image)
         self.ui.sld_iter.valueChanged.connect(self.update_image)
         self.ui.sld_threshold.valueChanged.connect(self.update_image)
         self.ui.btn_reset.clicked.connect(self.reset_parameters)
+
+
+    def choosenFile(self, filepath: str) -> None :
+        self.current_path = filepath
+        self.update_image()
+
+    def open_lib(self) -> None:
+        self.fits_lib = FitsLibrary()
+        self.fits_lib.choosenFile.connect(self.choosenFile)
+        self.fits_lib.ui.show()
 
     def open_file(self):
         """Ouvre l'explorateur de fichiers."""
