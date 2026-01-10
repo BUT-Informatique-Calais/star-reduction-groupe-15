@@ -32,9 +32,29 @@ Ce projet vise à développer une application de traitement d'images astronomiqu
 
 ## Installation
 
-**Lancer le programme** : python mainwindow.py
+
+### Dépendances
+```bash
+pip install -r requirements.txt
+```
+
+Or install dependencies manually:
+```bash
+pip install [package-name]
+```
+
+### Exigences
+
+- Python 3.8+
+- See `requirements.txt` for full dependency list
+- PyQt6
+- PySide6
+
+
+### Lancement de l'application QT
 
 ```bash
-python -m venv venv
-source venv/bin/activate  # Sur Windows: venv\Scripts\activate
+cd APPLICATIONQT
+python mainwindow.py
 ```
+
