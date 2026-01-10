@@ -13,7 +13,8 @@ class FitsLibrary(QDialog):
         self.setWindowTitle("G15 - Bibliothèque FITS")
         self.resize(1100, 700)
         
-
+        
+    
         # Chargement de l'UI
         loader = QUiLoader()
         ui_path = os.path.join(os.path.dirname(__file__), "biblio_images.ui")
@@ -22,7 +23,7 @@ class FitsLibrary(QDialog):
         self.ui = loader.load(ui_file, self)
         ui_file.close()
 
-        self.scroll_area = QScrollArea()
+        self.scroll_area = self.ui.scrollPictures
         self.scroll_area.setWidgetResizable(True) 
         self.scroll_area.setFrameShape(QScrollArea.NoFrame)
 

@@ -13,17 +13,6 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QWidget" name="gridLayoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>1181</width>
-     <height>621</height>
-    </rect>
-   </property>
-   <layout class="QGridLayout" name="grid_img_display"/>
-  </widget>
   <widget class="QWidget" name="horizontalLayoutWidget">
    <property name="geometry">
     <rect>
@@ -49,6 +38,29 @@
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QScrollArea" name="scrollPictures">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>1181</width>
+     <height>621</height>
+    </rect>
+   </property>
+   <property name="widgetResizable">
+    <bool>true</bool>
+   </property>
+   <widget class="QWidget" name="scroll_pictures">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1179</width>
+      <height>619</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>
