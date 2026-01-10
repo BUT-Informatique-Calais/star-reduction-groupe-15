@@ -24,20 +24,15 @@ class AstroPictureHandler:
             else:
                 image_rgb = ((data - data.min()) / (data.max() - data.min()) * 255).astype('uint8')
 
-            # --- SAUVEGARDE DE L'ORIGINALE ---
             results_dir = os.path.join(os.path.dirname(__file__), "..", "results")
             os.makedirs(results_dir, exist_ok=True)
             
-            # Pour cv.imwrite, il FAUT du BGR si l'image est en couleur
             if data.ndim == 3:
                 image_bgr = cv.cvtColor(image_rgb, cv.COLOR_RGB2BGR)
                 cv.imwrite(os.path.join(results_dir, "original.png"), image_bgr)
             else:
                 cv.imwrite(os.path.join(results_dir, "original.png"), image_rgb)
-            # ---------------------------------
 
-            # 2. Préparation pour le traitement OpenCV (Travail en niveaux de gris pour le masque)
-            # On utilise image_rgb car cv.cvtColor(RGB2GRAY) est standard
             gray = cv.cvtColor(image_rgb, cv.COLOR_RGB2GRAY) if data.ndim == 3 else image_rgb
             blurred = cv.GaussianBlur(gray, blur_size, 0)
             mask = cv.adaptiveThreshold(blurred, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY, 21, threshold_val)
@@ -52,7 +47,6 @@ class AstroPictureHandler:
             if data.ndim == 3:
                 M = M[:, :, np.newaxis]
             
-            # Calcul final (préserve le format RGB de départ)
             final_image = (M * eroded_image + (1 - M) * image_rgb).astype(np.uint8)
 
             return final_image
